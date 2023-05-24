@@ -21,7 +21,7 @@ class _AddNewPageState extends State<AddNewPage> {
   void addNote() {
     Note newNote = Note(
       id: const Uuid().v1(),
-      userid: "ratishjain",
+      userid: "ratishjain62@gmail.com",
       title: titleController.text,
       content: contentController.text,
       dateadded: DateTime.now(),
@@ -35,6 +35,7 @@ class _AddNewPageState extends State<AddNewPage> {
   void updateNote() {
     widget.note!.title = titleController.text;
     widget.note!.content = contentController.text;
+    widget.note!.dateadded = DateTime.now();
     Provider.of<NoteProvider>(context, listen: false).updateNote(widget.note!);
     Navigator.pop(context);
   }
