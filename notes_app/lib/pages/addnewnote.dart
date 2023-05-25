@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:notes_app/models/note.dart';
 import 'package:notes_app/providers/notes_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,11 +18,12 @@ class _AddNewPageState extends State<AddNewPage> {
   FocusNode noteFocus = FocusNode();
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  final userBox = Hive.box("userdata");
 
   void addNote() {
     Note newNote = Note(
       id: const Uuid().v1(),
-      userid: "ratishjain62@gmail.com",
+      userid: userBox.get("username"),
       title: titleController.text,
       content: contentController.text,
       dateadded: DateTime.now(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:notes_app/models/note.dart';
 import 'package:notes_app/pages/addnewnote.dart';
 import 'package:notes_app/providers/notes_provider.dart';
@@ -14,13 +15,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchQuery = TextEditingController();
+  final userBox = Hive.box("userdata");
+
   @override
   Widget build(BuildContext context) {
     final notesProvider = Provider.of<NoteProvider>(context, listen: false);
+    String username = userBox.get("username");
+
     context.watch<NoteProvider>().fetchNotes();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notes App"),
+        title: Text("$username Notes"),
         centerTitle: true,
       ),
       body: (notesProvider.isLoading == false)

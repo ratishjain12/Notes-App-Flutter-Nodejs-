@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:notes_app/services/api_service.dart';
 
 import '../models/note.dart';
@@ -45,7 +46,9 @@ class NoteProvider extends ChangeNotifier {
   }
 
   void fetchNotes() async {
-    notes = await ApiService.fetchNotes("ratishjain62@gmail.com");
+    final userBox = Hive.box("userdata");
+    String username = userBox.get("username");
+    notes = await ApiService.fetchNotes(username);
     sortNotes();
     isLoading = false;
     notifyListeners();
