@@ -11,6 +11,14 @@ class NoteProvider extends ChangeNotifier {
     notes.sort((a, b) => b.dateadded!.compareTo(a.dateadded!));
   }
 
+  List<Note> searchList(String searchQuery) {
+    List<Note> searchedNotes = [];
+    searchedNotes = notes
+        .where((element) => element.title!.toLowerCase().contains(searchQuery))
+        .toList();
+    return searchedNotes;
+  }
+
   void addNote(Note note) {
     notes.add(note);
     sortNotes();
